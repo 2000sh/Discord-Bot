@@ -1,5 +1,5 @@
 // Require the necessary discord.js classes
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, userMention, messageLink, time } = require('discord.js');
 const { token } = require('./config.json');
 
 // Create a new client instance
@@ -22,6 +22,16 @@ client.on('interactionCreate', async interaction => {
         await interaction.reply('Server info.');
     } else if (commandName === 'user') {
         await interaction.reply('User info.');
+    } else if (commandName === 'vote') {
+        const message = await interaction.reply({ content: "Give me your 3 favourite games then everyone can vote. Give them like this: 'Halo, fortnite, fall guys, amongus'", fetchReply: true});
+		message.react('😄');
+        message.awaitReactions({time:6000, errors:['time']})
+        .then(collected => {
+            const reaction = collected.first();
+            if(reaction.emoji.name === '😄'){
+                message.reply('You reacted with a smile!');
+            }
+        });
     }
 });
 
