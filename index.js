@@ -12,25 +12,25 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 const rest = new REST({ version: '10' }).setToken(token);
 
-(async () => {
-    client.on('interactionCreate', (interaction) => {
-        if(interaction.isChatInputCommand()){
-            console.log(interaction.options)
-            interaction.reply({content: 'Added'})
-        }})
+async () => {
+    // client.on('interactionCreate', (interaction) => {
+    //     if(interaction.isChatInputCommand()){
+    //         console.log(interaction.options)
+    //         interaction.reply({content: 'Added'})
+    //     }})
 
-    const command = [{
-        'name': 'game',
-        'description': 'add game',
-        'options': [
-            {
-                'name': 'game_name',
-                'description': 'Name of the game',
-                'type': 3,
-                'required': true
-            }
-        ]
-    }]
+    // const command = [{
+    //     'name': 'game',
+    //     'description': 'add game',
+    //     'options': [
+    //         {
+    //             'name': 'game name',
+    //             'description': 'Name of your favourite game',
+    //             'type': 3,
+    //             'required': true
+    //         }
+    //     ]
+    // }]
 
     if (commandName === 'ping') {
         await interaction.reply('Pong!');
@@ -49,18 +49,19 @@ const rest = new REST({ version: '10' }).setToken(token);
             }
         });
 
-    try {
-        const data = await rest.put(
-            Routes.applicationGuildCommands(clientId, guildId),
-            { body: command },
-        );
+        try {
+            const data = await rest.put(
+                Routes.applicationGuildCommands(clientId, guildId),
+                { body: command },
+            );
 
-        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-    } catch (error) {
-        console.error(error);
+            console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+        } catch (error) {
+            console.error(error);
 
+        }
     }
-});
+};
 
 // Login to Discord with your client's token
 client.login(token);
