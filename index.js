@@ -5,10 +5,19 @@ const { Routes } = require('discord.js');
 const {REST} = require("@discordjs/rest");
 
 // Create a new client instance
-const client = new Client({ intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers,
+    ],
+});
+
+client.on('messageCreate', (message) => {
+
+    console.log(message.reply(message.content))
+})
 
 client.on('interactionCreate', async interaction => {
     if (!interaction.isChatInputCommand()) return;
