@@ -13,7 +13,7 @@ const client = new Client({
     ],
 });
 
-client.on('interactionCreate',  (interaction) => {
+client.on('interaction',  (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
     if(interaction.isChatInputCommand()) {
@@ -22,7 +22,7 @@ client.on('interactionCreate',  (interaction) => {
             let user = interaction.user.username + '#' + interaction.user.discriminator
             console.log(interaction.options)
             console.log(user)
-            interaction.reply({content: 'listed'})
+            interaction.reply({content: 'added to list'})
         }
     }
 
